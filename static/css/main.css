@@ -1,0 +1,383 @@
+html,body{
+    /* min-height: 100%; */
+    height: 100%;
+    background-color:dimgrey; 
+    font-family: 'Roboto', sans-serif;
+}
+
+#sidebar{
+    width: 230px;
+    min-height: 100%;
+    position: fixed;    
+    overflow-y: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    font-size: 20px;
+}
+
+#sidebar div#drop{
+    padding-left: 50px;
+
+}
+#sidebar div#second-drop{
+    padding-left: 10px;
+    
+}
+
+#sidebar div#drop hr{
+    margin: 0px;
+    
+}
+ 
+.main{
+    margin-left: 230px;
+    margin-right: 0;
+    padding: 10px;
+    height: 95%;
+}
+
+/* today page */
+img.card-img-top{
+   width: 100%;
+   height: 200px
+}
+
+.card-body#today img{
+    min-height: 90px;
+    max-height: 125px;
+    margin-top: 5px;
+    padding: 0;
+    
+}
+
+.card {
+    width: 95%;
+    margin: 10px;
+}
+
+.card-title {
+    padding-bottom: 10px;
+
+}
+
+.card-title, h5 {
+    font-size: 1.23rem;
+    font-weight: bold;
+}
+.card-title, p {
+    font-size: 1.23rem;
+}
+
+.card-img-overlay img{
+    height: 125px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+    padding-top: 30px; 
+    padding-bottom: 20px;
+}
+
+.card-img-overlay h1{
+    text-align: center;
+    white-space: nowrap;
+    font-size: 24px;
+    margin: 0;
+}
+
+.card-text:last-child{
+    margin-bottom: 5px;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+/* tracker page */
+.container#tracker{
+    display: block;
+    text-align: center;
+    /* margin-top: 2vh; */
+    margin-bottom: 2vh;
+    padding: 20px;
+    background-image: url("/static/images/icons/back.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-width: 100%;
+    min-height: 100%;
+    color: black;
+}
+
+.bosses{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* padding-bottom: 50px; */
+
+}
+.container#tracker h1:first-child{
+    padding-top: 3vh;
+    margin-bottom: 0;
+    letter-spacing: 5px;
+}
+
+
+.bosses img{
+    height: 100%;
+}
+.bosses div.align-middle{
+    max-height: 300px;
+    padding: 30px 0px 40px 0px;
+    margin: 0;
+}
+
+.reputation {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* padding-top: 2vh; */
+    padding-bottom: 4vh;
+}
+
+.reputation h1{
+    padding-top: 5vh;
+    padding-bottom: 20px;
+    letter-spacing: 5px;
+}
+.reputation img{
+    height: 80%;
+    background-color:rgba(0,0,0,0.5);
+    border-radius: 100%;
+}
+
+div#region.align-middle img{
+    padding:10px ;
+    border-radius: 100%;
+    
+}
+
+.reputation div.align-middle{
+    max-height: 300px;
+    padding: 30px 0px 40px 0px;
+    margin: 0;
+}
+
+/* news page */
+.news{
+    background-image: url("/static/images/icons/432970.png");
+    background-repeat: no-repeat;
+    background-size: 30% 85%;
+    background-position: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center; 
+    color:white;
+}
+
+.codes{
+    text-align: center; 
+    padding-top: 2vh; 
+    padding-bottom:1vh
+}
+
+.codes table{
+    width: 100%; 
+    background-color:white; 
+    border-radius: 5px;
+}
+
+.codes tbody, td, tfoot, th, thead, tr{
+    padding:5px;
+}
+
+div.result{
+    margin: 0 50px; 
+    background-color: aliceblue; 
+    /* height: 100%;  */
+    border-radius: 30px;
+}
+
+div.result table{
+    width: 100%;
+    margin: 0px;
+    /* background-color: black; */
+
+}
+div.result table tr{
+    text-align: center;
+    margin: auto;
+    color: black;
+
+}
+
+div.result table tr td:last-child{
+    width: 50%;
+    /* text-align: left; */
+}
+div.result table tr td:first-child{
+    width: 30%;
+    /* text-align: right; */
+}
+
+div.result img{
+    height: 50px;
+    width: 50px;
+
+}
+
+div.result h1{
+    color: black;
+
+}
+
+.container#calculator{
+    padding-bottom: 3vh;
+
+}
+
+/* character db page */
+div#character{
+    width: 45%; 
+    padding: 0; 
+    margin: 10px;
+}
+
+img#card-five{
+    height: 200px;
+    width: 175px;
+    background-image: url("/static/images/db/assets/5star.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+
+}
+img#card-four{
+    height: 200px;
+    width: 175px;
+    background-image: url("/static/images/db/assets/4star.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+div#card-element{
+    position: absolute;
+
+}
+
+div#card-element img{
+    height: 40px;
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    background-color: black;
+    border-radius: 20px;
+}
+div#body{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div#weapon img{
+    height: 110px;
+    margin-top: 20px;
+}
+
+div#materials img{
+    height: 75px;
+}
+
+div.table img{
+    height: 75px;
+}
+
+div.table{
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+div.table table{
+    margin: 0 auto;
+}
+div.table td{
+    margin: 0;
+    padding: 0;
+}
+
+div.table td img{
+    height: 70px;
+}
+
+tr.table-light td img{
+    height:80px;
+}
+tr.table-light td {
+    width:auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+tr.table-light div.align-middle{
+    max-height: 300px;
+    padding: 0;
+    margin: 0;
+}
+
+tr.table-light div.align-middle p{
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+}
+
+tr.table-light td#bottom-text {
+    width:auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+img#db-five {
+    background-image: url("/static/images/db/assets/5star.png");
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+img#db-four {
+    background-image: url("/static/images/db/assets/4star.png");
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    background-position: center;
+}
+img#db-three {
+    background-image: url("/static/images/db/assets/3star.png");
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    background-position: center;
+}
+img#db-two {
+    background-image: url("/static/images/db/assets/2star.png");
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    background-position: center;
+}
+img#db-one {
+    background-image: url("/static/images/db/assets/1star.png");
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    background-position: center;
+}
+

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main">
+    <div class="container" id="tracker" style="font-style:italic">
+        <h1>Weekly Bosses</h1>
+        <div class="bosses">
+            <div class="align-middle">
+                {% if result["bosses"]["dvalin"] == 0 %}
+                <img onclick="changeImages('dvalin')" id="dvalin"
+                    src="{{url_for('static', filename='images/tracker/dvalin.png')}}">
+                {% else %}
+                <img onclick="changeImages('dvalin')" id="dvalin"
+                    src="{{url_for('static', filename='images/tracker/done/dvalin.png')}}">
+                {% endif %}
+                <h2>Stormterror</h2>
+            </div>
+
+            <div class="align-middle">
+                {% if result["bosses"]["borealis"] == 0 %}
+                <img onclick="changeImages('borealis')" id="borealis"
+                    src="{{url_for('static', filename='images/tracker/borealis.png')}}">
+                {% else %}
+                <img onclick="changeImages('borealis')" id="borealis"
+                    src="{{url_for('static', filename='images/tracker/done/borealis.png')}}">
+                {% endif %}
+                <h2>Lupus Boreas</h2>
+            </div>
+
+            <div class="align-middle">
+                {% if result["bosses"]["childe"] == 0 %}
+                <img onclick="changeImages('childe')" id="childe"
+                    src="{{url_for('static', filename='images/tracker/childe.png')}}">
+                {% else %}
+                <img onclick="changeImages('childe')" id="childe"
+                    src="{{url_for('static', filename='images/tracker/done/childe.png')}}">
+                {% endif %}
+                <h2>Childe</h2>
+            </div>
+
+            <div class="align-middle">
+                {% if result["bosses"]["azhdaha"] == 0 %}
+                <img onclick="changeImages('azhdaha')" id="azhdaha"
+                    src="{{url_for('static', filename='images/tracker/azhdaha.png')}}">
+                {% else %}
+                <img onclick="changeImages('azhdaha')" id="azhdaha"
+                    src="{{url_for('static', filename='images/tracker/done/azhdaha.png')}}">
+                {% endif %}
+                <h2>Azhdaha</h2>
+            </div>
+
+            <div class="align-middle">
+                {% if result["bosses"]["signora"] == 0 %}
+                <img onclick="changeImages('signora')" id="signora"
+                    src="{{url_for('static', filename='images/tracker/signora.png')}}">
+                {% else %}
+                <img onclick="changeImages('signora')" id="signora"
+                    src="{{url_for('static', filename='images/tracker/done/signora.png')}}">
+                {% endif %}
+                <h2>La Signora</h2>
+            </div>
+
+            <div class="align-middle">
+                {% if result["bosses"]["shogun"] == 0 %}
+                <img onclick="changeImages('shogun')" id="shogun"
+                    src="{{url_for('static', filename='images/tracker/shogun.png')}}">
+                {% else %}
+                <img onclick="changeImages('shogun')" id="shogun"
+                    src="{{url_for('static', filename='images/tracker/done/shogun.png')}}">
+                {% endif %}
+                <h2>Shogun</h2>
+            </div>
+
+        </div><!-- /bosses -->
+
+
+        <div class="reputation">
+            <div class="align-middle">
+                <h1>Daily</h1>
+                {% if result["daily"] == 0 %}
+                <img onclick="changeImages('daily')" id="daily"
+                    src="{{url_for('static', filename='images/tracker/daily.png')}}">
+                {% else %}
+                <img onclick="changeImages('daily')" id="daily"
+                    src="{{url_for('static', filename='images/tracker/done/daily.png')}}">
+                {% endif %}
+            </div>
+
+
+            <div class="align-middle" id="region">
+                <h1>Reputation</h1>
+                {% if result["reputation"]["mondstadt"] == 0 %}
+                <img onclick="changeImages('mondstadt')" id="mondstadt"
+                    src="{{url_for('static', filename='images/tracker/mondstadt.png')}}">
+                {% else %}
+                <img onclick="changeImages('mondstadt')" id="mondstadt"
+                    src="{{url_for('static', filename='images/tracker/done/mondstadt.png')}}">
+                {% endif %}
+
+                {% if result["reputation"]["liyue"] == 0 %}
+                <img onclick="changeImages('liyue')" id="liyue"
+                    src="{{url_for('static', filename='images/tracker/liyue.png')}}">
+                {% else %}
+                <img onclick="changeImages('liyue')" id="liyue"
+                    src="{{url_for('static', filename='images/tracker/done/liyue.png')}}">
+                {% endif %}
+
+                {% if result["reputation"]["inazuma"] == 0 %}
+                <img onclick="changeImages('inazuma')" id="inazuma"
+                    src="{{url_for('static', filename='images/tracker/inazuma.png')}}">
+                {% else %}
+                <img onclick="changeImages('inazuma')" id="inazuma"
+                    src="{{url_for('static', filename='images/tracker/done/inazuma.png')}}">
+                {% endif %}
+            </div>
+
+            <div class="align-middle">
+                <h1>Abyss</h1>
+                {% if result["abyss"] == 0 %}
+                <img onclick="changeImages('abyss')" id="abyss" style="border-radius:100px;"
+                    src="{{url_for('static', filename='images/tracker/abyss.png')}}">
+                {% else %}
+                <img onclick="changeImages('abyss')" id="abyss" style="border-radius:100px;"
+                    src="{{url_for('static', filename='images/tracker/done/abyss.png')}}">
+                {% endif %}
+            </div>
+        </div><!-- /reputation -->
+
+    </div><!-- /container -->
+</div><!-- /main -->
+<script>
+    function changeImages(text) {
+        var Image = document.getElementById(text);
+        if (Image.src.includes("/done/")) {
+            Image.src = "{{url_for('static', filename='images/tracker/')}}" + text + ".png";
+        } else {
+            Image.src = "{{url_for('static', filename='images/tracker/done/')}}" + text + ".png";
+        }
+        // данные для отправки
+        const post = {
+            name: text
+        };
+        // кодируем объект в формат json
+        const data = JSON.stringify(post);
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "{{url_for('tracker_update')}}");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                console.log("OK");
+            } else {
+                console.log("Server response: ", xhr.statusText);
+            }
+        };
+        xhr.send(data);
+    }
+</script>
+
+{% endblock %}

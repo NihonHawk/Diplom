@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- style="height: 100vh; background-color: dimgrey" -->
+<div class="main">
+  <div class="container">
+    <h1 class="news">Latest news</h1>
+    {% for items in news %}
+    <a href="{{items['Ссылка']}}" style="text-decoration:none; color: black" class="text">
+      <div class="card mb-3" style="width: 100%; margin: auto; ">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <img src="{{items['Изображение']}}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">{{items['Тема']}}</h5>
+              <p class="card-text">{{items['Описание']}}</p>
+              <p class="card-text"><small class="text-muted">{{items['Дата']}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+
+    <div class="codes">
+      <table class="table-light">
+        <tr>
+          <th>Codes</th>
+          <th>Reward 1</th>
+          <th>Reward 2</th>
+        </tr>
+        {% for items in codes %}
+        <tr>
+          <td>{{items['Code']}}</td>
+          <td>{{items['Reward'][0]}}-{{items['Reward'][1]}}</td>
+          <td>{{items['Reward'][2]}}-{{items['Reward'][3]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

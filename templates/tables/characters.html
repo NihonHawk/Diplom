@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main" style="padding-top: 2vh;">
+    <div class="row row-cols-auto row-cols-md-2 g-4"  style="margin: auto;">
+    {% for items in result %}
+    <div class="card mb text-white bg-dark" id="character">
+        <div class="row g-0">
+            <div class="col-md-auto">
+                {% if items[0].rare == 4 %}
+                <img id="card-four" src="{{url_for('static', filename='images/characters/')}}{{items[0].name}}/(2).png" class="img-fluid rounded-start" alt="{{items[0].name}}">
+                {% else %}
+                <img id="card-five" src="{{url_for('static', filename='images/characters/')}}{{items[0].name}}/(2).png" class="img-fluid rounded-start" alt="{{items[0].name}}">
+                {% endif %}
+                <div id="card-element">
+                    <img src="{{url_for('static', filename='images/db/assets/')}}{{items[0].element}}.png" alt="">
+                </div>
+            </div>
+            <div class="col-md">
+            <div class="card-body" style="padding: 0; ">
+                <h1>{{items[0].name}}</h1>
+                <div id="body">
+                    <div id="weapon">
+                        <img src="{{url_for('static', filename='images/db/assets/')}}{{items[0].weapon}}.png" alt="">
+                    </div>
+
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <td><img src="{{url_for('static', filename='images/db/characters/talent/')}}{{items[2].domain_material}}.png"></td>
+                                <td><img src="{{url_for('static', filename='images/materials/core/')}}{{items[1].elemental_core}}.png"></td>
+                                <td><img src="{{url_for('static', filename='images/db/characters/crystal/')}}{{items[1].crystal}}.png"></td>
+                            </tr>
+                            <tr>
+                                <td><img src="{{url_for('static', filename='images/materials/local/')}}{{items[1].local}}.png"></td>
+                                <td><img src="{{url_for('static', filename='images/db/characters/common/')}}{{items[1].common}}.png"></td>
+                                <td><img src="{{url_for('static', filename='images/materials/boss/')}}{{items[2].world_boss}}.png"></td>
+                            </tr>
+                        </table>
+                    </div>                
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div> 
+</div> 
+{% endblock %}

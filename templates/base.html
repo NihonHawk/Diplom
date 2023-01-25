@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>{{ title }}</title>
+  <meta http-equiv="Cache-control" content="no-store">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+
+<body>
+  <header class="sidebar">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" id="sidebar">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <img src="{{url_for('static', filename='images/icons/6.png')}}" alt="icon"
+          style="height:50px; margin-right:10px;position:relative;top:4px">
+        <span class="fs-4">Dousojin</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          {% if "Today" in title %}
+          <a href="{{url_for('index')}}" class="nav-link active" aria-current="page">
+            {% else %}
+            <a href="{{url_for('index')}}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home" />
+              </svg>
+              Today
+            </a>
+        </li>
+        <li>
+          {% if "Tracker" in title %}
+          <a href="{{url_for('tracker_display')}}" class="nav-link active" aria-current="page">
+            {% else %}
+            <a href="{{url_for('tracker_display')}}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#speedometer2" />
+              </svg>
+              Tracker
+            </a>
+        </li>
+        <li>
+          {% if "Calculator" in title %}
+          <a href="{{url_for('calculator')}}" class="nav-link active" aria-current="page">
+            {% else %}
+            <a href="{{url_for('calculator')}}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+              Calculator
+            </a>
+        </li>
+        <li>
+          {% if "News" in title %}
+          <a href="{{url_for('info')}}" class="nav-link active" aria-current="page">
+            {% else %}
+            <a href="{{url_for('info')}}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#grid" />
+              </svg>
+              News & Promo
+            </a>
+        </li>
+        <li>
+          <div>
+            <button class="nav-link text-white" aria-current="page" onclick="dropdown(1)">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#people-circle" />
+              </svg>
+              Data Base
+            </button>
+            <div id="drop" style="display: none;">
+              <hr>
+              <a href="{{url_for('characters')}}" class="nav-link text-white">Characters</a>
+              <button class="nav-link text-white" aria-current="page" onclick="dropdown(2)">Weapons</button>
+              <div id="second-drop" style="display: none;">
+                <hr>
+                <a href="{{url_for('swords')}}" class="nav-link text-white">Swords</a>
+                <a href="{{url_for('claymores')}}" class="nav-link text-white">Claymores</a>
+                <a href="{{url_for('polearms')}}" class="nav-link text-white">Polearms</a>
+                <a href="{{url_for('catalysts')}}" class="nav-link text-white">Catalysts</a>
+                <a href="{{url_for('bows')}}" class="nav-link text-white">Bows</a>
+                <hr>
+              </div>
+            </div>
+
+          </div>
+
+        </li>
+      </ul>
+      <hr>
+    </div>
+  </header>
+  {% block content %}
+  {% endblock %}
+  <script>
+    function dropdown(index) {
+      if (index == 1) {
+        const list = document.getElementById("drop");
+        if (list.style.display == "") {
+          list.style.display = "none";
+        } else {
+          list.style.display = "";
+        }
+      } else {
+        const list = document.getElementById("second-drop");
+        if (list.style.display == "") {
+          list.style.display = "none";
+        } else {
+          list.style.display = "";
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

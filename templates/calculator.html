@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main" style="color:white">
+    <div class="container" id="calculator" style="display:flex; flex-direction:row; padding-top: 2%;">
+        <div class="left" style="width:40%">
+            <h1>Character/Weapon</h1>
+            <div>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="table" autocomplete="off" onchange="change()">
+                        <option value="select" id="selected-table" selected>Select</option>
+                        <option value="character">Character</option>
+                        <option value="weapon">Weapon</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <select class="form-select" id="item" autocomplete="off">
+                        <option value="select" id="selected-name" selected>Select</option>
+                        {% for items in characters %}
+                        <option value="{{items.name}}" id="characters" style="display:none">{{items.name}}</option>
+                        {% endfor %}
+                        {% for items in weapons %}
+                        <option value="{{items.name}}" id="weapons" style="display:none">{{items.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="level1">Current lvl</label>
+                    <select class="form-select" id="level1" autocomplete="off">
+                        <option value="1">1</option>
+                        <option value="20">20</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="level2">Wanted lvl</label>
+                    <select class="form-select" id="level2" autocomplete="off">
+                        <option value="20">20</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" onclick="process(1)">Calculate</button>
+            </div>
+
+            <h1 style="margin-top : 4vh">Talents</h1>
+            <div>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="character" autocomplete="off">
+                        <option selected>Select</option>
+                        {% for items in characters %}
+                        <option value="{{items.name}}" id="talents">{{items.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="talent_level1">Current lvl</label>
+                    <select class="form-select" id="talent_level1" autocomplete="off">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="talent_level2">Wanted lvl</label>
+                    <select class="form-select" id="talent_level2" autocomplete="off">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" onclick="process(2)">Calculate</button>
+            </div>
+
+        </div>
+
+        <div class="right" style="text-align:center;width:60%;">
+            <h1>Result</h1>
+            <div class="result" id="result" onchange="hide()">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function process(index) {
+        // данные для отправки
+        var post = {}
+        if (index == 1) {
+            var post = {
+                type: Number(index),
+                table: document.getElementById('table').value,
+                name: document.getElementById('item').value,
+                first_level: Number(document.getElementById('level1').value),
+                second_level: Number(document.getElementById('level2').value)
+            }
+        }
+        if (index == 2) {
+            var post = {
+                type: Number(index),
+                name: document.getElementById('character').value,
+                first_level: Number(document.getElementById('talent_level1').value),
+                second_level: Number(document.getElementById('talent_level2').value)
+            }
+        }
+
+        // кодируем объект в формат json
+        const data = JSON.stringify(post);
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "{{url_for('doit')}}");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+
+                while (document.getElementById('result').firstChild) {
+                    document.getElementById('result').removeChild(document.getElementById('result').firstChild);
+                }
+                // console.log(Object.keys(response["common_material"])[0])
+                let name = "";
+                let value = "";
+                let path = "";
+
+                if (response["table"] == "character") {
+                    for (i in response) {
+                        if (i != "table" && i != "name") {
+                            switch (i) {
+                                case "book":
+                                    create("Опыт героя", response[i], "currency/book")
+                                    break;
+
+                                case "mora":
+                                    create("Мора", response[i], "currency/mora");
+                                    break;
+
+                                case "elemental_crystal":
+                                    for (i in response["elemental_crystal"]) {
+                                        create(i, response["elemental_crystal"][i], "crystal/" + i);
+                                    }
+                                    break;
+
+                                case "elemental_core":
+                                    create(response["elemental_core"]["name"], response["elemental_core"]["value"], "core/" + response["elemental_core"]["name"]);
+                                    break;
+
+                                case "local_material":
+                                    create(response["local_material"]["name"], response["local_material"]["value"], "local/" + response["local_material"]["name"]);
+                                    break;
+
+                                case "common_material":
+                                    for (i in response["common_material"]) {
+                                        create(i, response["common_material"][i], "enemy/" + Object.keys(response["common_material"])[0] + "/" + i);
+                                    }
+                                    break;
+                            };
+                        };
+                    };
+                };
+
+                if (response["table"] == "weapon") {
+                    for (i in response) {
+                        if (i != "table" && i != "name") {
+                            switch (i) {
+                                case "ore":
+                                    create("Волшебная руда усиления", response[i], "currency/ore")
+                                    break;
+
+                                case "mora":
+                                    create("Мора", response[i], "currency/mora");
+                                    break;
+
+                                case "domain_material":
+                                    for (i in response["domain_material"]) {
+                                        create(i, response["domain_material"][i], "domain/" + Object.keys(response["domain_material"])[0] + "/" + i)
+                                    }
+                                    break;
+
+                                case "elite_material":
+                                    for (i in response["elite_material"]) {
+                                        create(i, response["elite_material"][i], "enemy/" + Object.keys(response["elite_material"])[0] + "/" + i)
+                                    }
+                                    break;
+
+                                case "common_material":
+                                    for (i in response["common_material"]) {
+                                        create(i, response["common_material"][i], "enemy/" + Object.keys(response["common_material"])[0] + "/" + i)
+                                    }
+                                    break;
+                            };
+                        };
+                    };
+                };
+
+                if (response["table"] == "talent") {
+                    for (i in response) {
+                        if (i != "table" && i != "name") {
+                            switch (i) {
+                                case "mora":
+                                    create("Мора", response[i], "currency/mora");
+                                    break;
+
+                                case "book":
+                                    for (i in response["book"]) {
+                                        create(i, response["book"][i], "talent/" + Object.keys(response["book"])[0] + "/" + i)
+                                    }
+                                    break;
+
+                                case "boss_material":
+                                    create(response["boss_material"]["name"], response["boss_material"]["value"], "boss/" + response["boss_material"]["name"]);
+                                    break;
+
+                                case "common_material":
+                                    for (i in response["common_material"]) {
+                                        create(i, response["common_material"][i], "enemy/" + Object.keys(response["common_material"])[0] + "/" + i)
+                                    }
+                                    break;
+
+                                case "crown":
+                                    create("Корона прозрения", response["crown"], "currency/" + i);
+                                    break;
+                            };
+                        };
+                    };
+                };
+
+            } else {
+                console.log("Server response: ", xhr.statusText);
+            };
+        };
+        xhr.send(data);
+    }
+
+    function create(name, value, path) {
+        if (value != 0) {
+            let table = document.createElement('table');
+            let thead = document.createElement('thead');
+            let tbody = document.createElement('tbody');
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+
+            document.getElementById('result').appendChild(table);
+
+            let row = document.createElement('tr');
+
+            let data_1 = document.createElement('td');
+            data_1.innerHTML = value;
+
+            let data_2 = document.createElement('td');
+            let img = document.createElement('img');
+            img.src = "{{url_for('static', filename='images/materials/')}}" + path + ".png";
+            data_2.appendChild(img);
+
+            let data_3 = document.createElement('td');
+            data_3.innerHTML = name;
+
+            row.appendChild(data_1);
+            row.appendChild(data_2);
+            row.appendChild(data_3);
+            tbody.appendChild(row);
+        } else {
+            console.log(0);
+        };
+    }
+
+    function change() {
+        var id = document.getElementById('table').value;
+        if (id == 'character') {
+            const charactersList = document.querySelectorAll("#characters");
+            const weaponsList = document.querySelectorAll("#weapons");
+
+            const charactersArray = [...charactersList];
+            charactersArray.forEach(element => {
+                element.style.display = "";
+            });
+
+            const weaponsArray = [...weaponsList];
+            weaponsArray.forEach(element => {
+                element.style.display = "none";
+            });
+
+
+        } else {
+            const charactersList = document.querySelectorAll("#characters");
+            const weaponsList = document.querySelectorAll("#weapons");
+
+            const charactersArray = [...charactersList];
+            charactersArray.forEach(element => {
+                element.style.display = "none";
+            });
+
+            const weaponsArray = [...weaponsList];
+            weaponsArray.forEach(element => {
+                element.style.display = "";
+            });
+        }
+
+        document.getElementById("selected-table").style.display = "none";
+        document.getElementById("selected-name").style.display = "none";
+        document.getElementById("selected-name").selected = "Select";
+    }
+
+</script>
+{% endblock %}

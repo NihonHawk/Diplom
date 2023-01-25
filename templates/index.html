@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main" style="padding-top: 2vh">
+    <div class="row row-cols-1 row-cols-md-3 g-4" style="margin: auto; padding-right: 5px">
+        {% for k, v in result.items() %}
+        {% for items in dungeon %}
+        {% if k in items.name %}
+        <div class="col">
+            <div class="card w-100 h-100 text-white bg-dark mb-3" id="characters">
+                <img src="{{url_for('static', filename='images/domains/')}}{{items.domain}}.png" class="card-img-top"
+                    alt="...">
+                <div class="card-img-overlay">
+                    <img src="{{url_for('static', filename='images/today/')}}{{k}}.png" alt="{{k}}">
+                    <h5 class="card-title" style="text-align: center; color: white;">{{k}}</h5>
+                </div>
+
+                <div class="card-body" id="today">
+                    {% for value in v %}
+                    {% if items.form == "Повышение талантов" %}
+                    <img src="{{url_for('static', filename='images/characters/')}}{{value}}/(1).png" alt="{{value}}">
+                    {% endif %}
+                    {% if items.form == "Возвышение оружия" %}
+                    {% for form in weapon %}
+                    {% if form.name == value %}
+                    <img src="{{url_for('static', filename='images/weapons/')}}{{form.form}}/{{value}}/(1).png"
+                        alt="{{value}}">
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

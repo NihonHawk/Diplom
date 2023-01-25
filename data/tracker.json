@@ -1,0 +1,18 @@
+{
+    "bosses": {
+        "dvalin": 0,
+        "borealis": 0,
+        "childe": 0,
+        "azhdaha": 0,
+        "signora": 0,
+        "shogun": 0
+    },
+    "reputation": {
+        "mondstadt": 0,
+        "liyue": 0,
+        "inazuma": 0
+    },
+    "daily": 0,
+    "abyss": 0,
+    "date": "2022-05-04"
+}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main" style="padding-top: 2vh;">
+    <div class="container mt-2">
+        <!--    <h1>Персонажи</h1>-->
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr class="align-middle" style="text-align:center">
+                        <td>Name</td>
+                        <td>Rare</td>
+                        <td>ATK</td>
+                        <td>Sub Stat</td>
+                        <td>Value</td>
+                        <td>Domain material</td>
+                        <td>Elite material</td>
+                        <td>Common material</td>
+                    </tr>
+                </thead>
+        
+            {% for items in result %}
+                <tr class="table-light">
+                    <td>
+                        <div class="align-middle">
+                            {% if items[0].rare == 4 %}
+                            <img id="db-four" src="{{url_for('static', filename='images/weapons/')}}{{items[0].form}}/{{items[0].name}}/(1).png" alt="">
+                            {% endif %}
+                            {% if items[0].rare == 3 %}
+                            <img id="db-three" src="{{url_for('static', filename='images/weapons/')}}{{items[0].form}}/{{items[0].name}}/(1).png" alt="">
+                            {% endif %}
+                            {% if items[0].rare == 2 %}
+                            <img id="db-two" src="{{url_for('static', filename='images/weapons/')}}{{items[0].form}}/{{items[0].name}}/(1).png" alt="">
+                            {% endif %}
+                            {% if items[0].rare == 1 %}
+                            <img id="db-one" src="{{url_for('static', filename='images/weapons/')}}{{items[0].form}}/{{items[0].name}}/(1).png" alt="">
+                            {% endif %}
+                            {% if items[0].rare == 5 %}
+                            <img id="db-five" src="{{url_for('static', filename='images/weapons/')}}{{items[0].form}}/{{items[0].name}}/(1).png" alt="">
+                            {% endif %}
+
+                            <p>{{items[0].name}}</p>
+                        </div>
+                        
+                    </td>
+                    <td>{{ items[0].rare }}</td>
+                    <td>{{ items[0].atk }}</td>
+                    <td>{{ items[0].sub_stat }}</td>
+                    <td>{{ items[0].value }}</td>
+
+                    <td>
+                        <div class="align-middle">
+                            <img id="db-two" src="{{url_for('static', filename='images/materials/domain/')}}{{items[1].domain_material}}/{{items[1].domain_material}}.png" alt="">
+                            <p>{{items[1].domain_material}}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="align-middle">
+                            <img id="db-two" src="{{url_for('static', filename='images/materials/enemy/')}}{{items[1].elite_material}}/{{items[1].elite_material}}.png" alt="">
+                            <p>{{ items[1].elite_material }}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="align-middle">
+                            <img id="db-one" src="{{url_for('static', filename='images/materials/enemy/')}}{{items[1].common_material}}/{{items[1].common_material}}.png" alt="">
+                            <p>{{ items[1].common_material }}</p>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        
+        </div>
+   
+
+</div>
+{% endblock %}
