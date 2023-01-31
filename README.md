@@ -1,8 +1,7 @@
 # Diplom
 
-App to help player in genshin impact daily routine
-
-(To display images, place the "images" folder in static)
+Приложение для помощи игроку с ежедневной рутиной в GI
+(Для отображения изображений необходимо поместить папку с изображениями в Static)
 
 ![images archive](https://drive.google.com/file/d/1JbBBsqdykOoXcV9f-F3UD6q6S9CcBfrb/view?usp=sharing)
 
